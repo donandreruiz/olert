@@ -1,0 +1,46 @@
+/*
+  This code controls 5 vibration motors that activate only when any information is being
+  received by the serial monitor
+
+  Thomas Kelleher
+  Hackathon Nov. 2 2018
+*/
+
+int motor1 = 3;  // the PWM pin the vibrator is attached to
+int motor2 = 5;
+int motor3 = 6;
+int motor4 = 9;
+int motor5 = 10;
+
+int off = 0;    // deactivate motor
+int on = 255;    // activate motor
+
+
+void setup() {
+  // put your main code here, to run repeatedly:
+  pinMode(motor1, OUTPUT);
+  pinMode(motor2, OUTPUT);
+  pinMode(motor3, OUTPUT);
+  pinMode(motor4, OUTPUT);
+  pinMode(motor5, OUTPUT);
+  Serial.begin(9600);
+}
+void loop() {
+  if (Serial.available() > 0) {
+    if (Serial.read() != -1) {
+      analogWrite(motor1, on);
+      analogWrite(motor2, on);
+      analogWrite(motor3, on);
+      analogWrite(motor4, on);
+      analogWrite(motor5, on);
+    }
+  }
+  else {
+    analogWrite(motor1, off);
+    analogWrite(motor2, off);
+    analogWrite(motor3, off);
+    analogWrite(motor4, off);
+    analogWrite(motor5, off);
+  }
+  delay(100);
+}
